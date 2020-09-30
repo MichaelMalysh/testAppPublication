@@ -3,20 +3,20 @@ package com.example.web.dto;
 /**
  * @author Misha Malysh
  */
-public class UserRegistrationDto {
+public class UserDto {
     private String firstName;
     private String lastName;
     private String login;
     private String password;
 
-    public UserRegistrationDto(String firstName, String lastName, String login, String password) {
+    public UserDto(String firstName, String lastName, String login, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
     }
 
-    public UserRegistrationDto() {
+    public UserDto() {
     }
 
     public String getFirstName() {

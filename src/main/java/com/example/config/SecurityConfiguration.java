@@ -20,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity// integrated Spring Security with Spring MVC
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    //this annotation is deprecated, but need because with constructor I have a circle creating bean
     @Autowired
     private UserService userService;
 
