@@ -1,9 +1,12 @@
-package com.example.web.controller;
+package com.example.web.controllers;
 
 import com.example.model.User;
+import com.example.repository.PublicationRepository;
+import com.example.service.PublicationService;
 import com.example.service.UserService;
 import com.example.web.dto.UserDto;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +17,18 @@ import java.util.List;
  * @author Misha Malysh
  */
 @Controller
-public class UserController {
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+public class AdminController {
 
     private UserService userService;
+    private PublicationService publicationService;
 
-    public UserController(UserService userService) {
+    private final PublicationRepository publicationRepository;
+
+    public AdminController(UserService userService, PublicationRepository publicationRepository, PublicationService publicationService) {
         this.userService = userService;
+        this.publicationRepository = publicationRepository;
+        this.publicationService = publicationService;
     }
 
     // display list of employees

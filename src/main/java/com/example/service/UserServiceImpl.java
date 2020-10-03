@@ -51,13 +51,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         User user = userRepository.findByLogin(s);
-        if(user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid username or password");
         }
         return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
@@ -69,10 +69,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(long id) {
         Optional<User> optionalUser = userRepository.findById(id);
-        User user = null;
-        if(optionalUser.isPresent()){
+        User user;
+        if (optionalUser.isPresent()) {
             user = optionalUser.get();
-        }else {
+        } else {
             throw new RuntimeException("User not found for id" + id);
         }
         return user;
@@ -80,9 +80,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
-        this.userRepository.save(user);
+        User updateUser = user;
+        deleteUserBuId(user.getId());
+        this.userRepository.save(updateUser);
     }
 
     @Override

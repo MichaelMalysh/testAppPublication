@@ -1,4 +1,4 @@
-package com.example.web.controller;
+package com.example.web.controllers;
 
 import com.example.service.UserService;
 import com.example.web.dto.UserDto;

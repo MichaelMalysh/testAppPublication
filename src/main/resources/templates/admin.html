@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Admin Page</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
+<header th:insert="blocks/header :: header"></header>
 <div class="container my-2">
     <h1 align="center">Users List</h1>
     <a th:href="@{/showNewUserFrom}" class="btn btn-primary btn-sm md-3">Add User</a>
+    <a th:href="@{/admin-publication}" class="btn btn-primary btn-sm md-3">Add Publication</a>
+    <br>
     <table border="2" class="table table-striped table-responsive-md">
         <thead>
         <tr>
@@ -46,26 +50,29 @@
             <div class="col-sm-2">
                 Total Rows: [[${totalItems}]]
             </div>
-            <div class="col-sm-1">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+            <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}" class="btn=group mr-2" role="group" aria-label="First group">
                     <a th:if="${currentPage != i}"
-                       th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-                    <span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+                       th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" type="button" class="btn btn-secondary">[[${i}]]</a>
+                    <span th:unless="${currentPage != i}" type="button" class="btn btn-secondary">[[${i}]]</span>
                 </span>
             </div>
             <div class="col-sm-1">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
-                <span th:unless="${currentPage < totalPages}">Next</span>
+                   th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                 class="badge badge-pill badge-info">Next</a>
+                <span th:unless="${currentPage < totalPages}"></span>
             </div>
 
             <div class="col-sm-1">
                 <a th:if="${currentPage < totalPages}"
-                   th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
-                <span th:unless="${currentPage < totalPages}">Last</span>
+                   th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
+                   class="badge badge-pill badge-info">Last</a>
+                <span th:unless="${currentPage < totalPages}"></span>
             </div>
         </div>
     </div>
 </div>
+<div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

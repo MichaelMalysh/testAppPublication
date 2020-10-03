@@ -8,12 +8,21 @@ public class UserDto {
     private String lastName;
     private String login;
     private String password;
+    private int badget;
 
     public UserDto(String firstName, String lastName, String login, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
         this.password = password;
+    }
+
+    public UserDto(String firstName, String lastName, String login, String password, int badget) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.badget = badget;
     }
 
     public UserDto() {
@@ -49,5 +58,13 @@ public class UserDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getBadget() {
+        return badget;
+    }
+
+    public void setBadget(int badget) {
+        this.badget = badget;
     }
 }
