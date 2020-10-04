@@ -20,7 +20,62 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 <header th:insert="blocks/header :: header"></header>
-Hello from main
+<div class="container my-2">
+    <div class="row">
+        <div class="col-4">
+            <nav id="navbar" class="navbar navbar-light bg-light">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#item-1" th:text="#{mainPageAbout}">About web app</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-5 my-1" href="#item-1-1" th:text="#{mainPageTheme}">Theme</a>
+                        <a class="nav-link ml-5 my-1" href="#item-1-2" th:text="#{mainPageUsers}">Users</a>
+                    </nav>
+                    <a class="nav-link" href="#item-2" th:text="#{mainPageCapability}">Capability</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ml-5 my-1" href="#item-2-1" th:text="#{mainPageUser}">User</a>
+                        <a class="nav-link ml-5 my-1" href="#item-2-2" th:text="#{mainPageAdmin}">Admin</a>
+                    </nav>
+                </nav>
+            </nav>
+        </div>
+        <div class="col-6">
+            <div data-spy="scroll" data-target="#navbar" data-offset="0">
+                <h4 id="item-1" th:text="#{mainPageAbout}">About web app</h4>
+                <p>This is periodical web app for EPAM testing.<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.
+                    A web application is a client-server application in which a client interacts with a web server using
+                    a browser.<br>
+                    The logic of the web application is distributed between the server and the client, data storage is
+                    carried out mainly on the server,<br>
+                    information is exchanged over the network.
+                    One of the benefits of this approach is the fact that clients are independent of the specific
+                    operating system of the user, <br>
+                    so web applications are cross-platform services.<br>
+                    The most common forms of periodicals:<br>
+                    Web applications became widely used in the late 1990s and early 2000s.</p>
+                <h5 id="item-1-1" th:text="#{mainPageTheme}">Theme</h5>
+                <p>Periodicals with capability to subscribe to publication<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.</p>
+                <h5 id="item-1-2" th:text="#{mainPageUsers}">Users</h5>
+                <p>Two type of users: Admin and Reader<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.</p>
+                <h4 id="item-2" th:text="#{mainPageCapability}">Capability</h4>
+                <p>You can subscribe to some publications. You art need to being log in to system with email address<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.</p>
+                <h5 id="item-2-1" th:text="#{mainPageUser}">User</h5>
+                <p>Simple user have some restrictions but can subscribe to publications and top up an account<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.</p>
+                <h5 id="item-2-2" th:text="#{mainPageAdmin}">Admin</h5>
+                <p>Admin can do things as user can but have no restrictions.<br>
+                    Also, Admin can delete users and add users, can do simply things with publications and have lists of
+                    all
+                    users and all publications.<br>
+                    Another somee text, it needs to test the bootstrap example of Scrollspy.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
 <div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

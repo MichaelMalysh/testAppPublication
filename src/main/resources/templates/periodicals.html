@@ -21,6 +21,23 @@
         crossorigin="anonymous"></script>
 
 <header th:insert="blocks/header :: header"></header>
+<form th:action="@{/filter}" method="post" th:object="${themes}">
+    <input type="text" name="filter">
+    <button type="submit">Search</button>
+    <div class="card-columns">
+        <div class="card border-success" style="max-width: 18rem;" th:each="publication : ${themes}">
+            <div class="card-header bg-transparent border-success" th:text="${publication.title}"></div>
+            <img th:src="${'/images/' + publication.photo}" class="card-img-top">
+            <div class="card-body text-success">
+                <h5 class="card-title" th:text="${publication.theme}"></h5>
+                <p class="card-text">
+                    <small class="text-muted" th:text="'Cost: ' + ${publication.price}"></small>
+                    <a th:href="'/publication/' + ${publication.id}" class="btn btn-warning">Buy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</form>
 <div class="card-columns">
     <div class="card border-success" style="max-width: 18rem;" th:each="publication : ${listPublications}">
         <div class="card-header bg-transparent border-success" th:text="${publication.title}"></div>

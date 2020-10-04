@@ -7,11 +7,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService  extends UserDetailsService {
+public interface UserService extends UserDetailsService {
     User save(UserDto registrationDto);
     List<User> getAllUsers();
     User getUserById(long id);
     void saveUser(User user);
     void deleteUserBuId(long id);
     Page<User> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+
+
 }

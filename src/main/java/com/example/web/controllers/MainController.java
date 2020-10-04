@@ -1,6 +1,5 @@
 package com.example.web.controllers;
 
-import com.example.service.PublicationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
