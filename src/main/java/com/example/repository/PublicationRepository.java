@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PublicationRepository extends JpaRepository<Publication, Long> {
         List<Publication> findByTheme(String theme);
+        List<Publication> findByTitle(String theme);
 }

@@ -1,4 +1,4 @@
-<div th:fragment="header">
+<div th:fragment="header" >
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal" th:text="#{title}">Publication App</h5>
         <div class="dropdown">
@@ -17,8 +17,8 @@
             <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" th:text="#{headerButtonLogout}">Logout</a>
             </li>
         </ul>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-1 text-dark" th:href="@{/user/1}" th:text="#{headerLinkProfile}">Profile</a>
+        <nav class="my-2 my-md-0 mr-md-3 " >
+<!--            <a class="p-1 text-dark" th:href="@{/user/{id}(id=${user.id})}" th:text="#{headerLinkProfile}">Profile</a>-->
             <a class="p-1 text-dark" th:href="@{/}" th:text="#{headerLinkHome}">Main Page</a>
             <a class="p-1 text-dark" th:href="@{/periodicals}" th:text="#{headerLinkPeriodicals}">Periodicals</a>
         </nav>

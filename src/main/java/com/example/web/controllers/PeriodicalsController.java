@@ -5,6 +5,7 @@ import com.example.repository.PublicationRepository;
 import com.example.service.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,8 +21,6 @@ import java.util.List;
 @Controller
 public class PeriodicalsController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
 
     private final PublicationService publicationService;
 
@@ -34,10 +33,7 @@ public class PeriodicalsController {
 
     @GetMapping("/periodicals")
     public String periodicalsPage(Model model) {
-        model.addAttribute("title", "Main Page");
-        model.addAttribute("listPublications", publicationService.getAllPublications());
-        model.addAttribute("filPath", uploadPath);
-        return "periodicals";
+        return findPaginated(1, "title", "asc", model);
     }
 
     @GetMapping("/publication/{id}")
@@ -50,14 +46,40 @@ public class PeriodicalsController {
     }
 
     @PostMapping("/filter")
-    public String filter(@RequestParam String filter, Model model){
+    public String filterTheme(@RequestParam String filter, Model model){
         List<Publication> themes;
         if(filter != null && !filter.isEmpty()) {
-             themes = publicationRepository.findByTheme(filter);
+            themes = publicationRepository.findByTheme(filter);
+            if(themes.size() == 0){
+                themes = publicationRepository.findByTitle(filter);
+            }
+            model.addAttribute("themes", themes);
         }else {
-            themes = publicationService.getAllPublications();
+            model.addAttribute("listPublications", publicationService.getAllPublications());
         }
-        model.addAttribute("themes", themes);
         return "periodicals";
     }
+
+    @GetMapping("/periodicals/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo,
+                                @RequestParam(value = "sortField") String sortField,
+                                @RequestParam(value = "sortDir") String sortDir,
+                                Model model) {
+        int pageSize = 4;
+
+        Page<Publication> page = publicationService.findPaginated(pageNo, pageSize, sortField, sortDir);
+        List<Publication> listPublications = page.getContent();
+
+        model.addAttribute("currentPage", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalItems", page.getTotalElements());
+
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
+
+        model.addAttribute("listPublications", listPublications);
+        return "periodicals";
+    }
+
 }
