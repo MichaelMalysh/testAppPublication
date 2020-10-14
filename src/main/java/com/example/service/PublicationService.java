@@ -11,4 +11,5 @@ public interface PublicationService {
     void savePublication(Publication publication);
     Publication getById(long id);
     Page<Publication> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
+//    Page<Publication> findPaginated(int pageNo, int pageSize);
 }

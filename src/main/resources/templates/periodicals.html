@@ -21,61 +21,23 @@
         crossorigin="anonymous"></script>
 
 <header th:insert="blocks/header :: header"></header>
-<div class="search">
-    <form th:action="@{/filter}" method="post" th:object="${themes}">
-        <div class="col-md-3 col-md-offset-3">
-            <p th:text="#{periodicalsPageSearch}"></p>
-            <input type="text" class="form-control" id="username" name="filter" placeholder="Search"><br>
-            <div class="col-sm-6 col-sm-offset-3">
-                <input type="submit" name="login-submit" id="login-submit"
-                       class="form-control btn btn-primary" value="Search"/>
-            </div>
-        </div>
-        <br>
-        <br>
-        <div class="card-columns">
-            <div class="card border-success" style="max-width: 18rem;" th:each="publication : ${themes}">
-                <div class="card-header bg-transparent border-success" th:text="${publication.getTitle()}"></div>
-                <img th:src="${'/images/' + publication.photo}" class="card-img-top">
-                <div class="card-body text-success">
-                    <h5 class="card-title" th:text="${publication.getTheme()}"></h5>
-                    <p class="card-text">
-                        <small class="text-muted" th:text="'Cost: ' + ${publication.getPrice()}"></small>
-                        <a th:href="'/publication/' + ${publication.getId()}" class="btn btn-warning">Buy</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<div th:insert="blocks/listPublications :: listPublications"></div>
-<div th:if="${totalPages > 1}">
-    <div class="row col-sm-10">
-        <div class="col-sm-2">
-            Total Rows: [[${totalItems}]]
-        </div>
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <span th:each="i: ${#numbers.sequence(1, totalPages)}" class="btn=group mr-2" role="group" aria-label="First group">
-                    <a th:if="${currentPage != i}"
-                       th:href="@{'/periodicals/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}" type="button" class="btn btn-secondary">[[${i}]]</a>
-                    <span th:unless="${currentPage != i}" type="button" class="btn btn-secondary">[[${i}]]</span>
-                </span>
-        </div>
-        <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}"
-               th:href="@{'/periodicals/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-               class="badge badge-pill badge-info">Next</a>
-            <span th:unless="${currentPage < totalPages}"></span>
-        </div>
-
-        <div class="col-sm-1">
-            <a th:if="${currentPage < totalPages}"
-               th:href="@{'/periodicals/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}"
-               class="badge badge-pill badge-info">Last</a>
-            <span th:unless="${currentPage < totalPages}"></span>
+<form th:action="@{/periodicals}" method="post" th:object="${listPublications}">
+    <div class="col-md-3 col-md-offset-3">
+        <p th:text="#{periodicalsPageSearchTitle}"></p>
+        <input type="text" class="form-control" id="username" name="filter"  th:placeholder="#{periodicalsPageSearchInput}"><br>
+        <div class="col-sm-6 col-sm-offset-3">
+            <input type="submit" name="search-submit" id="search-submit"
+                   class="form-control btn btn-primary" th:value="#{periodicalsPageSearchButton}"/>
         </div>
     </div>
-</div>
+</form>
+<br>
+<br>
+<form th:action="@{periodicals}" method="get">
+    <div th:insert="blocks/pagination :: pagination"></div><br>
+    <div th:insert="blocks/listPublications :: listPublications"></div><br>
+    <div th:insert="blocks/pagination :: pagination"></div><br>
+</form>
 <div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>

@@ -113,6 +113,9 @@ public class User {
     }
 
     public int getBudget() {
+        if(budget == null){
+            budget = 0;
+        }
         return budget;
     }
 

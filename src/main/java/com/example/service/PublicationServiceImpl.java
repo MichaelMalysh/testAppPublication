@@ -47,7 +47,7 @@ public class PublicationServiceImpl implements PublicationService {
         return publication;
     }
 
-    @Override
+        @Override
     public Page<Publication> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
                 Sort.by(sortField).descending();
@@ -55,4 +55,10 @@ public class PublicationServiceImpl implements PublicationService {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
         return this.publicationRepository.findAll(pageable);
     }
+//    @Override
+//    public Page<Publication> findPaginated(int pageNo, int pageSize) {
+//
+//        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+//        return this.publicationRepository.findAll(pageable);
+//    }
 }

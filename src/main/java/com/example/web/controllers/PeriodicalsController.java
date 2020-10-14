@@ -34,6 +34,7 @@ public class PeriodicalsController {
     @GetMapping("/periodicals")
     public String periodicalsPage(Model model) {
         return findPaginated(1, "title", "asc", model);
+//        return findPaginated(1, model);
     }
 
     @GetMapping("/publication/{id}")
@@ -45,7 +46,7 @@ public class PeriodicalsController {
         return "buy-publication";
     }
 
-    @PostMapping("/filter")
+    @PostMapping("/periodicals")
     public String filterTheme(@RequestParam String filter, Model model){
         List<Publication> themes;
         if(filter != null && !filter.isEmpty()) {
@@ -53,9 +54,9 @@ public class PeriodicalsController {
             if(themes.size() == 0){
                 themes = publicationRepository.findByTitle(filter);
             }
-            model.addAttribute("themes", themes);
+            model.addAttribute("listPublications", themes);
         }else {
-            model.addAttribute("listPublications", publicationService.getAllPublications());
+            return periodicalsPage(model);
         }
         return "periodicals";
     }
@@ -68,6 +69,7 @@ public class PeriodicalsController {
         int pageSize = 4;
 
         Page<Publication> page = publicationService.findPaginated(pageNo, pageSize, sortField, sortDir);
+//        Page<Publication> page = publicationService.findPaginated(pageNo, pageSize);
         List<Publication> listPublications = page.getContent();
 
         model.addAttribute("currentPage", pageNo);

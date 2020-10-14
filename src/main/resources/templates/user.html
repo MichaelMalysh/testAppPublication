@@ -16,19 +16,32 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
 <header th:insert="blocks/header :: header"></header>
-<form th:action="@{/user/{id}(id=${user.id})}" method="post" th:object="${user}">
-    <div class="card mb-3 my-2" style="max-width: 540px;" th:each="el : ${user}">
-        <div class="row no-gutters">
-            <div class="col-md-8">
+<div>
+    <form th:action="@{/user}" method="get" th:object="${user}">
+        <div class="card mb-3 my-2" style="max-width: 540px;" th:each="el : ${user}">
+            <div class="row no-gutters">
                 <div class="card-body">
                     <h5 class="card-title ml-10" th:text="${el.firstName}"></h5>
                     <p class="card-text" th:text="${el.lastName}"></p>
                     <p class="card-text" th:text="${el.login}"></p>
+                    <p class="card-text" th:text="'Balance: ' + ${el.budget}"></p>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+    <form th:action="@{/user}" method="post" th:object="${balance}">
+        <div class="card mb-3 my-2" style="max-width: 540px;">
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="userBalance">Change balance</label>
+                    <input type="text" class="form-control" name="balance" id="userBalance"
+                           placeholder="Top up your balance">
+                </div>
+                <button type="submit" class="btn btn-info">Change</button>
+            </div>
+        </div>
+    </form>
+</div>
 <div th:insert="blocks/footer :: footer"></div>
 </body>
 </html>
